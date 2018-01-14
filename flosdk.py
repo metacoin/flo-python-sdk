@@ -9,19 +9,31 @@ import os
 import pprint
 import traceback
 
+## TODO: Versioning 
+
 ## Library functions
 # Get info from FLO RPC using getinfo call 
 # This function is the basis for all getinfo sub-functions
 def get_info():
     payload = b'{"jsonrpc":"1.0","id":"curltext","method":"getinfo","params":[]}'
     headers = {'content-type': 'text/plain'}
-    r = requests.post('http://localhost:{}'.format(os.environ['FLO_RPCPORT']), data=payload, headers=headers, auth=(os.environ['FLO_RPCUSER'], os.environ['FLO_PASSWORD']))
+    r = requests.post('http://localhost:{}'.format(os.environ['FLO_RPCPORT']), 
+            data=payload,
+            headers=headers,
+            auth=(os.environ['FLO_RPCUSER'],
+            os.environ['FLO_PASSWORD'])
+    )
     return r.json()
 
 def get_account_address(account):
     payload = b'{"jsonrpc":"1.0","id":"curltext","method":"getaccountaddress","params":[""]}'
     headers = {'content-type': 'text/plain'}
-    r = requests.post('http://localhost:{}'.format(os.environ['FLO_RPCPORT']), data=payload, headers=headers, auth=(os.environ['FLO_RPCUSER'], os.environ['FLO_PASSWORD']))
+    r = requests.post('http://localhost:{}'.format(os.environ['FLO_RPCPORT']),
+            data=payload, 
+            headers=headers,
+            auth=(os.environ['FLO_RPCUSER'],
+            os.environ['FLO_PASSWORD'])
+    )
     if r.json()['error'] is not None: 
         raise Exception(r.json()['error'])
     else:
