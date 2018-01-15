@@ -5,7 +5,7 @@ Currently built for python 2.7
 Requires an environment variable setup file. Example is in .env\_example
 
 ## Install
-Copy files into your project, include and run.
+Copy files into your project, include, and run.
 
 The directory structure should look like this:
 
