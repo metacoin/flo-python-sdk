@@ -14,7 +14,7 @@ The directory structure should look like this:
  └ main.py
  └📂flosdk
    └ flosdk.py
-   └ init.py
+   └ __init__.py
 ```
 
 ## Running
