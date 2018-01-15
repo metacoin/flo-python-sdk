@@ -12,6 +12,7 @@ The directory structure should look like this:
 ```
 📂root directory
  └ main.py
+ └ .env
  └📂flosdk
    └ flosdk.py
    └ __init__.py
@@ -19,21 +20,51 @@ The directory structure should look like this:
 
 ## Running
 
-Start by sourcing the environment variable file.
+Start by editing the `.env_example` file and adding your local FLO node configuration there. On a Linux system, the FLO configuration file is set-up by default in the home directory under `~/.florincoin/florincoin.conf`. If it doesn't exist, create it, and add the following:
+
+```
+rpcserver=1
+rpcuser=flo
+rpcpassword=flopass999999999222
+rpcallowip=192.168.0.0/16
+rpcallowip=127.0.0.1
+rpcport=7313
+port=7312
+server=1
+listen=1
+addnode=188.166.6.99
+addnode=176.9.59.110
+addnode=193.70.122.58
+addnode=nyc2.entertheblockchain.com
+addnode=sf1.entertheblockchain.com
+addnode=am2.entertheblockchain.com
+addnode=sgp.entertheblockchain.com
+addnode=ind.entertheblockchain.com
+addnode=de.entertheblockchain.com
+```
+
+Rename the `.env_example` file to `.env`:
+
+```
+mv .env_example .env
+```
+
+Add each environment variable to your shell by sourcing the `.env` file:
 
 ```
 source .env
 ```
 
-Then, implement flosdk in your python project, and test if it works:
+Implement flosdk in your python project and test it:
 
 ```
+# main.py
+
 import flosdk from flosdk
 print flosdk.get_info()
 ```
 
-
-Then run `main.py`: 
+Run `main.py`: 
 ```
 python main.py
 ```
