@@ -20,7 +20,15 @@ The directory structure should look like this:
 
 ## Running
 
-Start by editing the `.env_example` file and adding your local FLO node configuration there. On a Linux system, the FLO configuration file is set-up by default in the home directory under `~/.florincoin/florincoin.conf`. If it doesn't exist, create it, and add the following:
+Start by editing the `.env_example` file and adding your local FLO node configuration there. It should look something like this: 
+
+```
+export FLO_RPCUSER=flo
+export FLO_PASSWORD=flopass999999999222
+export FLO_RPCPORT=7313
+```
+
+The variables should match your local FLO configuration file. On a Linux system the FLO configuration file is set-up by default in the home directory under `~/.florincoin/florincoin.conf`. If it doesn't exist, create it, and add the following:
 
 ```
 rpcserver=1
@@ -43,7 +51,7 @@ addnode=ind.entertheblockchain.com
 addnode=de.entertheblockchain.com
 ```
 
-Rename the `.env_example` file to `.env`:
+After matching-up the `.env_example` file with the values from `florincoin.conf` rename the `.env_example` file to `.env`:
 
 ```
 mv .env_example .env
