@@ -4,6 +4,7 @@
 # Special thanks: MustyMouse
 # Special thanks: technanner
 
+import pprint
 import requests 
 import os
 import traceback
@@ -46,6 +47,8 @@ def call_rpc(payload, headers=None):
     if headers is None: headers = {'content-type': 'text/plain'}
     try:
         response = rpc_request(payload, headers)
+        print "** RESPONSE **"
+        print response
         return response
     except Exception as e:
         print traceback.print_exc(e)
@@ -58,14 +61,14 @@ def rpc_request(payload, headers):
     except Exception as e:
         print "rpc_request: exception"
         raise Exception(e)
-    else: print "rpc_request: no exception (else clause)"
-
-    if r.json()['error'] is not None:
-        print "rpc_request: error is not none"
-        raise Exception(r.json()['error'])
-    else:
-        print "rpc_request: error is none, returning the result"
-        return r.json()['result']
+    else: 
+        if r.status_code == 401: raise Exception("[FLO SDK Exception]: 401 authentication failed on RPC request POST.")
+        if r.json()['error'] is not None:
+            print "rpc_request: error is not none"
+            raise Exception("[FLO SDK Exception]: FLO RPC returned this error: " + r.json()['error'])
+        else:
+            print "rpc_request: error is none, returning the result"
+            return r.json()['result']
 
 ## Blockchain
 # getbestblockhash
@@ -493,4 +496,3 @@ def get_blocks():
     info = get_info()
     blocks = info['blocks']
     return blocks
-
