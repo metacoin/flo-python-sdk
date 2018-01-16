@@ -10,10 +10,10 @@ Copy files into your project, include, and run.
 The directory structure should look like this:
 
 ```
-📂root directory
+📂root directory/
  └ main.py
  └ .env
- └📂flosdk
+ └📂flosdk/
    └ flosdk.py
    └ __init__.py
 ```
@@ -90,7 +90,7 @@ Nice to have:
 1. Alexandria / OIP API functions.
 2. Flotorizer / SharedSecret functions. 
 3. Ability to connect to a pre-funded remote RPC.
-4. SSL for the connection between the local client and server.
+4. SSL connection between the local client and server.
 
 ### RPC interface connecting to a local or remote FLO RPC daemon
 
@@ -120,7 +120,7 @@ Same as above.
 
 Some clients won't have funds or any way to get funds, but will still want to post things on the blockchain. There should be some process of acquiring a `funded key` from a web-facing server that allows authorized clients to post to the blockchain after authenticating with their `funded key`.
 
-### SSL for the connection between the local client and server
+### SSL connection between the local client and server
 
 The local client and server should have a secure tunnel to communicate with.
 
