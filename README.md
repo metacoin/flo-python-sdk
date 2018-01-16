@@ -126,7 +126,7 @@ The local client and server should have a secure tunnel to communicate with.
 
 ## Debugging
 
-Here are some usual errors that might be encountered:
+For now we haven't added a `--verbose` option yet, every error is printed with a stack trace in full, below is a list of common errors.
 
 #### `Exception: HTTPConnectionPool Max retries exceeded`
 
@@ -135,3 +135,8 @@ This error, alongside `Failed to establish a new connection: [Errno 111] Connect
 Exception: HTTPConnectionPool(host='localhost', port=7313): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f6c029f2310>: Failed to establish a new connection: [Errno 111] Connection refused',))
 ```
 
+## TODO:
+
+1. Add `--verbose` option.
+2. Standardize errors.
+3. Decide on class/module structure.
