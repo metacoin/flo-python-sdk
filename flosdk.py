@@ -17,7 +17,12 @@ import traceback
 def get_info():
     payload = b'{"jsonrpc":"1.0","id":"curltext","method":"getinfo","params":[]}'
     headers = {'content-type': 'text/plain'}
-    return call_rpc(payload, headers)
+    try: 
+        return rpc_request(payload, headers)
+    except Exception as e:
+        # TODO: pass a custom FLOSDK exception
+        print "[FLO SDK Exception]: get_info failed"
+        print traceback.print_exc(e)
 
 def get_account_address(account):
     payload = b'{"jsonrpc":"1.0","id":"curltext","method":"getaccountaddress","params":[""]}'
@@ -32,6 +37,7 @@ def get_account_address(account):
         raise Exception(r.json()['error'])
     else:
         return r.json()['result']
+
 def write_to_blockchain(address, appdata=None):
     # TODO: figure out str.format() instead of concat
     payload = '{"jsonrpc":"1.0","id":"curltext","method":"sendtoaddress","params":["' + address + '", 0.1, "", "", "' + appdata + '"]}'
@@ -42,29 +48,18 @@ def write_to_blockchain(address, appdata=None):
     else:
         return r.json()['result']
 
-## Driver function
-def call_rpc(payload, headers=None):
+def rpc_request(payload, headers=None):
     if headers is None: headers = {'content-type': 'text/plain'}
-    try:
-        response = rpc_request(payload, headers)
-        print "** RESPONSE **"
-        print response
-        return response
-    except Exception as e:
-        print traceback.print_exc(e)
-
-def rpc_request(payload, headers):
     print "in rpc_request"
     headers = {'content-type': 'text/plain'}
     try: 
         r = requests.post('http://localhost:{}'.format(os.environ['FLO_RPCPORT']), data=payload, headers=headers, auth=(os.environ['FLO_RPCUSER'], os.environ['FLO_PASSWORD']))
     except Exception as e:
-        print "rpc_request: exception"
+        print "[FLO SDK Exception]: rpc_request exception"
         raise Exception(e)
     else: 
         if r.status_code == 401: raise Exception("[FLO SDK Exception]: 401 authentication failed on RPC request POST.")
         if r.json()['error'] is not None:
-            print "rpc_request: error is not none"
             raise Exception("[FLO SDK Exception]: FLO RPC returned this error: " + r.json()['error'])
         else:
             print "rpc_request: error is none, returning the result"
