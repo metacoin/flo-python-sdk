@@ -5,9 +5,35 @@ Currently built for python 2.7
 Requires an environment variable setup file. Example is in .env\_example
 
 ## Install
-Copy files into your project, include, and run.
 
-The directory structure should look like this:
+### Requirements
+
+Requests:
+```
+pip install requests
+
+```
+
+### Clone the repo
+
+
+```
+git clone https://github.com/metacoin/flo-python-sdk.git flosdk
+```
+
+Create main.py:
+
+```
+touch main.py
+```
+
+Move the environment variable file to your root directory:
+
+```
+mv flosdk/.env_example .env
+```
+
+Now the directory structure should look like this:
 
 ```
 📂root directory/
@@ -68,7 +94,7 @@ Implement flosdk in your python project and test it:
 ```
 # main.py
 
-import flosdk from flosdk
+from flosdk import flosdk
 print flosdk.get_info()
 ```
 
