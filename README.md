@@ -166,6 +166,7 @@ Exception: HTTPConnectionPool(host='localhost', port=7313): Max retries exceeded
 1. Add `--verbose` option.
 2. Standardize errors.
 3. Decide on class/module structure.
+4. Use proxy instead of requests for RPC connection (like in python-bitcoinlib)
 
 ## LICENSE
 
