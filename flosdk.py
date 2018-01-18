@@ -18,11 +18,14 @@ def get_info():
     payload = b'{"jsonrpc":"1.0","id":"curltext","method":"getinfo","params":[]}'
     headers = {'content-type': 'text/plain'}
     try: 
-        return rpc_request(payload, headers)
+        print rpc_request(payload, headers)
     except Exception as e:
         # TODO: pass a custom FLOSDK exception
         print "[FLO SDK Exception]: get_info failed"
-        print traceback.print_exc(e)
+        if traceback.print_exc(e) is not None:
+            for ex in traceback.print_exc(e):
+                if ex is not None:
+                    print ex
 
 def get_account_address(account):
     payload = b'{"jsonrpc":"1.0","id":"curltext","method":"getaccountaddress","params":[""]}'
@@ -50,8 +53,8 @@ def write_to_blockchain(address, appdata=None):
 
 def rpc_request(payload, headers=None):
     if headers is None: headers = {'content-type': 'text/plain'}
-    print "in rpc_request"
     headers = {'content-type': 'text/plain'}
+    check_environment()
     try: 
         r = requests.post('http://localhost:{}'.format(os.environ['FLO_RPCPORT']), data=payload, headers=headers, auth=(os.environ['FLO_RPCUSER'], os.environ['FLO_PASSWORD']))
     except Exception as e:
@@ -491,3 +494,20 @@ def get_blocks():
     info = get_info()
     blocks = info['blocks']
     return blocks
+
+# Check if environment variables are set
+def check_environment():
+    if 'FLO_RPCPORT' in os.environ:
+        if os.environ['FLO_RPCPORT'] is None or os.environ['FLO_RPCPORT'] == '':
+            raise Exception("[FLO SDK Exception]: Environment variable FLO_RPCPORT is not set.")
+    else: raise Exception("[FLO SDK Exception]: Environment variable FLO_RPCPORT is not set.")
+
+    if 'FLO_RPCUSER' in os.environ:
+        if os.environ['FLO_RPCUSER'] is None or os.environ['FLO_RPCUSER'] == '':
+            raise Exception("[FLO SDK Exception]: Environment variable FLO_RPCUSER is not set.")
+    else: raise Exception("[FLO SDK Exception]: Environment variable FLO_RPCUSER is not set.")
+
+    if 'FLO_PASSWORD' in os.environ:
+        if os.environ['FLO_PASSWORD'] is None or os.environ['FLO_PASSWORD'] == '':
+            raise Exception("[FLO SDK Exception]: Environment variable FLO_PASSWORD is not set.")
+    else: raise Exception("[FLO SDK Exception]: Environment variable FLO_PASSWORD is not set.")
